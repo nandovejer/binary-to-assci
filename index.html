@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor ASCII y Binario</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-10">
+
+    <div class="container mx-auto">
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <h2 class="text-lg font-bold mb-2">MAQUINA</h2>
+                <textarea id="binario" class="w-full h-64 p-2 border border-gray-300 rounded"></textarea>
+            </div>
+            <div>
+                <h2 class="text-lg font-bold mb-2">PERSONA</h2>
+                <textarea id="ascii" class="w-full h-64 p-2 border border-gray-300 rounded"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('ascii').addEventListener('input', function() {
+            let input = this.value;
+            let output = '';
+
+            for (let i = 0; i < input.length; i++) {
+                let bin = input[i].charCodeAt(0).toString(2);
+                output += bin.padStart(8, '0') + ' ';
+            }
+
+            document.getElementById('binario').value = output.trim();
+        });
+
+        document.getElementById('binario').addEventListener('input', function() {
+            let input = this.value.split(' ').join('');
+            let output = '';
+
+            for (let i = 0; i < input.length; i += 8) {
+                let byte = input.slice(i, i + 8);
+                output += String.fromCharCode(parseInt(byte, 2));
+            }
+
+            document.getElementById('ascii').value = output;
+        });
+    </script>
+</body>
+</html>
